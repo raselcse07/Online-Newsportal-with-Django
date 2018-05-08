@@ -1,0 +1,125 @@
+{% load static %}
+<!-- Left Panel -->
+<aside id="left-panel" class="left-panel">
+   <nav class="navbar navbar-expand-sm navbar-default">
+      <div class="navbar-header">
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+         <i class="fa fa-bars"></i>
+         </button>
+         <a class="navbar-brand" href="./">Admin Panel</a>
+         <a class="navbar-brand hidden" href="./"><i class="ti-user"></i></a>
+      </div>
+      <div id="main-menu" class="main-menu collapse navbar-collapse">
+         <ul class="nav navbar-nav">
+            <li class="active">
+               <a href="{{ request.user.get_absolute_url }}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+            </li>
+            <h3 class="menu-title">Post Section</h3>
+            <!-- /.menu-title -->
+            <li>
+               <a href="{% url "Post:post_list" %}"> <i class="menu-icon  ti-layers-alt"></i>All Posts </a>
+            </li>
+            <li class="menu-item-has-children dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-pin-alt"></i>Add New</a>
+               <ul class="sub-menu children dropdown-menu">
+                  <li><i class="ti-plus"></i><a href="{% url "Post:add_new_post" %}">Post</a></li>
+                  <li><i class="ti-plus"></i><a href="{% url "Post:category_create" %}">Category</a></li>
+               </ul>
+            </li>
+            {% if request.user.is_admin %}
+            <h3 class="menu-title">User Management</h3>
+            <!-- /.menu-title -->
+            <li>
+               <a href="{% url "Reporter:user_register" %}"> <i class="menu-icon ti-plus"></i>Add New </a>
+            </li>
+            <li>
+               <a href="{% url "Reporter:reporters" %}"> <i class="menu-icon ti-user"></i>All Reporter </a>
+            </li>
+            <h3 class="menu-title">Theme Settings</h3>
+            <!-- /.menu-title -->
+            <li>
+               <a href="{% url "Reporter:enable_settings" %}"> <i class="menu-icon  ti-flickr"></i>Enable Settings</a>
+            </li>
+            <li class="menu-item-has-children dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-columns"></i>Hompage Middle</a>
+               <ul class="sub-menu children dropdown-menu">
+                  <li><i class="menu-icon ti-plus"></i><a href="{% url "Reporter:middle_widget" %}">Widget One</a></li>
+                  <li><i class="menu-icon ti-plus"></i><a href="{% url "Reporter:middle_widget_below" %}">Widget Two</a></li>
+                  <li><i class="menu-icon ti-plus"></i><a href="{% url "Reporter:middle_widget_below_two" %}">Widget Three</a></li>
+               </ul>
+            </li>
+            <li class="menu-item-has-children dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-layout"></i>Footer</a>
+               <ul class="sub-menu children dropdown-menu">
+                  <li><i class="menu-icon ti-plus"></i><a href="{% url "Reporter:footer_above" %}">Footer One</a></li>
+                  <li><i class="menu-icon ti-plus"></i><a href="#">Footer Two</a></li>
+                  <li><i class="menu-icon ti-plus"></i><a href="#">Footer Three</a></li>
+               </ul>
+            </li>
+            <h3 class="menu-title">Tools</h3>
+            <!-- /.menu-title -->
+            <li>
+               <a href="{% url "Reporter:insert_header" %}"> <i class="menu-icon  fa fa-code"></i>Insert Header & Footer</a>
+            </li>
+             <h3 class="menu-title">Site Settings</h3>
+            <!-- /.menu-title -->
+             <li>
+               <a href="{% url "Reporter:general_settings_create" %}"> <i class="menu-icon  fa fa-wrench"></i>General Settings</a>
+            </li>
+            <li>
+               <a href="{% url "Reporter:copyright_section" %}"> <i class="menu-icon  fa fa-laptop"></i>Copyright Section</a>
+            </li>
+            <h3 class="menu-title">Ads Management</h3>
+            <!-- /.menu-title -->
+            <li>
+               <a href="{% url "Reporter:homepage_ads" %}"> <i class="menu-icon  fa fa-laptop"></i>Hompage Ads</a>
+            </li>
+            <li>
+               <a href="{% url "Reporter:post_detail_ads" %}"> <i class="menu-icon  fa fa-laptop"></i>Post Detail Ads</a>
+            </li>
+            <h3 class="menu-title">Facebook Instant Article</h3>
+            <!-- /.menu-title -->
+            <li>
+               <a href="{% url "Reporter:insatnt_article" %}"> <i class="menu-icon  fa fab fa-facebook"></i>Setup Instant Article</a>
+            </li>
+            <h3 class="menu-title">SEO</h3>
+            <!-- /.menu-title -->
+            <li>
+               <a href="{% url "Reporter:seo_settings" %}"> <i class="menu-icon  fa fas fa-globe"></i>SEO Settings</a>
+            </li>
+            {% endif %}
+            <h3 class="menu-title">Profile Settings</h3>
+            <!-- /.menu-title -->
+            <li>
+               <a href="{% url "Reporter:user_detail" request.user %}"> <i class="menu-icon ti-id-badge"></i>Detail</a>
+            </li>
+            <li>
+               <a href="{% url "Reporter:user_update" request.user %}"> <i class="menu-icon fa fa-edit"></i>Update</a>
+            </li>
+         </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+   </nav>
+</aside>
+<!-- /#left-panel -->
+<!-- Left Panel -->
+<!-- Right Panel -->
+<div id="right-panel" class="right-panel">
+<!-- Header-->
+<header id="header" class="header">
+   <div class="header-menu">
+      <div class="col-sm-7">
+         <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+         <div class="header-left">
+            <p><i class="fa fa-user"> </i>  {{ request.user }}</p>
+         </div>
+      </div>
+      <div class="col-sm-5">
+         <div class="user-area dropdown float-right">
+            <p><i class="fa  fa-sign-out"> </i>  <a data-toggle="modal" data-target="#logoutModal" href="#">Logout</a></p>
+         </div>
+      </div>
+   </div>
+</header>
+<!-- /header -->
+<!-- Header-->

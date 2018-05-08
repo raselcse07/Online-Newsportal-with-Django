@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ general_settings.name_of_site }} | যোগাযোগ</title>
+
+    {% include "Homepage/header.html" %}
+
+</head>
+
+<body>
+
+
+    <!-- header social icon start -->
+    <div class="header_social_icon">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="date">
+                        <p><i class="fas fa-map-marker-alt"></i>  ঢাকা, <script type="text/javascript" src="http://english-date.appspot.com/index5.php"></script> | <script type="text/javascript" src="http://bangladate.appspot.com/index5.php"></script></p>
+                    </div>
+                </div>
+                <div class="col-sm-4 hidden-xs">
+                    <div class="social_icon">
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr"></div>
+    <!-- header social icon end -->
+
+    <!-- Menubar start -->
+
+    <nav class="navbar navbar-default custom_nav">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my_nav" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="logo">
+                    {% if general_settings.site_logo %}
+                    <a href="/"><img src="{{ general_settings.site_logo.url }}" alt="logo" width="190px"></a>
+                    {% else %}
+                        Site Logo
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="my_nav">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">মূলপাতা</a></li>
+                    {% for ob in all_category %}
+                    <li><a href="{% url "Post:category_detail" ob.category_slug %}">{{ ob.category_name }}</a></li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menubar end -->
+
+
+    <div class="latest_news_scroll">
+        <div class="container">
+            <div class="row">
+                <div class="mlr">
+                    <div>
+                    {% if ads_homepage.header_ads_970x90 %}
+                        {{ ads_homepage.header_ads_970x90|safe }}
+                    {% else %}
+                    <img src="{% static "img/ads_970x90.jpg" %}" width="100%" style="margin-top: 10px;" alt="970x90">
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Details part start -->
+    <section class="details">
+              <div class="latest_news_scroll">
+                  <div class="container">
+                      <div class="row">
+                          <div class="mlr" style="text-align: justify;">
+                            {% for ob in about_string|slice:":1"%}
+                              <font size="4">{{ ob.conatct|safe}}</font>
+                            {% endfor %}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+    </section>
+    <!-- Details part end -->
+
+	<!-- Footer part start -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 footer_logo">
+                    <a href="#" class="name_plate">{{ general_settings.name_of_site }} </a>
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                {% for ob in category_1st_half_1st %}
+                    {% for ob2 in all_category %}
+                        {% if ob2.category_name == ob %}
+                            <a href="{% url "Post:category_detail" ob2.category_slug %}">{{ ob2.category_name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </div>
+
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                {% for ob in category_1st_half_2nd %}
+                    {% for ob2 in all_category %}
+                        {% if ob2.category_name == ob %}
+                            <a href="{% url "Post:category_detail" ob2.category_slug %}">{{ ob2.category_name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                {% for ob in category_2nd_half_1st %}
+                    {% for ob2 in all_category %}
+                        {% if ob2.category_name == ob %}
+                            <a href="{% url "Post:category_detail" ob2.category_slug %}">{{ ob2.category_name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </div>
+
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                {% for ob in category_2nd_half_2nd %}
+                    {% for ob2 in all_category %}
+                        {% if ob2.category_name == ob %}
+                            <a href="{% url "Post:category_detail" ob2.category_slug %}">{{ ob2.category_name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </div>
+                <div class="clr visible-sm visible-xs"></div>
+                <div class="col-md-4">
+                    <div class="about_us">
+                      {% if copyright_info.about_summary %}
+                      <p>{{ copyright_info.about_summary|safe }}</p>
+                      {% else %}
+                      <p>About Website</p>
+                      {% endif %}
+                      {% if copyright_info.editor_email %}
+                      <p>সম্পাদকঃ {{ copyright_info.editor_email|safe }}</p>
+                      {% else %}
+                      <p>ইমেইলঃ info@website.com</p>
+                      {% endif %}
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook" style="color: #4267b2"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter-square" style="color: #1da1f2"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin" style="color: #4267b2"></i></a></li>
+                            <li><a href="#"><i class="fab fa-pinterest" style="color: #bd081c"></i></a></li>
+                            <li><a href="#"><i class="fab fa-youtube" style="color: #bd081c"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer part end -->
+    <div class="copyright">
+      <p>
+        <a href="{% url "Post:about_page" %}" style="color:white;">আমাদের সম্পর্কে</a> | <a href="{% url "Post:contact_page" %}" style="color:white;">যোগাযোগ</a> | <a href="{% url "Post:privacy_page" %}" style="color:white;">গোপনীয় নিতিমালা</a> | <a href="{% url "Post:ads_page" %}" style="color:white;">বিজ্ঞাপন</a>
+      </p>
+      <p>
+        {% if copyright_info.copy_right_text %}
+        {{ copyright_info.copy_right_text|safe }}
+        {% else %}
+        Copyrigth@2018 | Website.Com
+        {% endif %}
+      </p>
+      <p>
+        কারিগরি সহযোগিতায় <a href="https://www.facebook.com/rasel.cse07" target="_blank" style="color:green;">মোঃ রাসেল</a>
+      </p>
+    </div>
+
+
+
+    <!-- ================== back to top start ================== -->
+
+    <div class="back_to_top">
+        <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
+    </div>
+
+    <!--  ================== back to top end ================== -->
+
+
+
+
+{% include "Homepage/footer.html" %}
+
+
+</body>
+
+</html>

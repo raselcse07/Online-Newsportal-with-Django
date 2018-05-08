@@ -1,0 +1,54 @@
+{% extends "Reporter/dashboard.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if request.user.is_admin %}
+
+<!-- Start-->
+<div class="col-xl-12">
+   <div class="card">
+      <div class="card-body">
+         <div class="row">
+            <div class="col-sm-6">
+               <h2 class="card-title mb-0">All Users</h2>
+            </div>
+            <!--/.col-->
+         </div>
+         <!--/.row-->
+         <hr>
+         <div class="chart-wrapper mt-4" >
+            <table class="table table-bordered">
+               <thead>
+                  <tr>
+                     <th>Full Name</th>
+                     <th>Username</th>
+                     <th>Images</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for ob in qs %}
+                  <tr>
+                     <td>{{ ob.name_of_reporter }}</td>
+                     <td>{{ ob.username }}</td>
+                     <td>
+                        {% if ob.user_image %}
+                        <img src="{{ ob.user_image.url }}" width="100px" height="100px">
+                        {% endif %}
+                     </td>
+                  </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+{% else %}
+<div class="row">
+   <div class="col-sm-12">
+      <img src="{% static "img/No-Permission.jpg" %}" height="100%" width="100%">
+   </div>
+</div>
+<br>
+{% endif %}
+{% endblock %}

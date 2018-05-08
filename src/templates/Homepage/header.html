@@ -1,0 +1,29 @@
+{% load static %}
+
+<link rel="shortcut icon" type="image/png" href="{{ general_settings.site_favicon.url }}"/>
+
+<!-- Bootstrap -->
+<link href="{% static "Base/css/bootstrap.min.css" %}" rel="stylesheet">
+
+<!-- Fontawesome -->
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+
+<!-- jQuery Plugins css -->
+<link href="{% static "Base/css/slick.css" %}" rel="stylesheet">
+<link href="css/venobox.css" rel="stylesheet">
+
+<!-- Main Css -->
+<link rel="stylesheet" href="{% static "Base/css/style.css" %}">
+<link rel="stylesheet" href="{% static "Base/css/responsive.css" %}">
+
+<!-- Insert Header -->
+{{ header_footer_code.header_code|safe }}
+    
+<style type="text/css">
+        #top-left {
+        position: absolute;
+        top: 8px;
+        left: 16px;
+        margin-left: 10px;
+
+</style>

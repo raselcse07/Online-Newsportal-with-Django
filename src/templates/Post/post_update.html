@@ -1,0 +1,186 @@
+{% extends "Reporter/dashboard.html" %}
+{% block content %}
+<style type="text/css">
+   input[type=text], select, textarea {
+   width: 100%;
+   padding: 12px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   resize: vertical;
+   }
+</style>
+<!-- Start--> 
+{% if messages %}
+{% for message in messages %}
+<div class="alert  alert-success alert-dismissible fade show" role="alert">
+   <span class="badge badge-pill badge-success">Success!</span> {% if "html_safe" in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}.To view post <a href="{% url "Post:post_detail" qs.slug %}" target="_blank">Click here.</a>
+   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+   <span aria-hidden="true">&times;</span>
+   </button>
+</div>
+{% endfor %}
+{% endif %}
+<div class="col-xl-12">
+   <div class="card">
+      <div class="card-body">
+         <div class="row">
+            <div class="col-sm-6">
+               <h2 class="card-title mb-0">Edit Post&ensp;&ensp;&ensp;<a href="{% url "Post:add_new_post" %}" class="btn btn-info">Add New</a> </h2>
+            </div>
+            <!--/.col-->
+         </div>
+         <!--/.row-->
+         <hr>
+         <div class="chart-wrapper mt-4" >
+            <form method='POST' action='' enctype='multipart/form-data' id="postForm" data-disticts-url="{% url "Post:ajax_load_disticts" %}" novalidate>
+               {% csrf_token %}
+               <div class="form-group">
+                  <!-- Start Form Group-->
+                  <div class="row">
+                     <!-- Start Row -->
+                     <div class="col-sm-8">
+                        <!-- Left -->
+                        <div class="row">
+                           <!-- Title -->
+                           <div class="col-sm-12">
+                              <h2>{{ form.title.label }}</h2>
+                              <hr>
+                              {{ form.title }}
+                           </div>
+                        </div>
+                        <!-- End Title -->
+                        <br>
+                        <div class="row">
+                           <!-- Content -->
+                           <div class="col-sm-12">
+                              <h2>{{ form.content.label }}</h2>
+                              <hr>
+                              {{ form.content }}
+                           </div>
+                        </div>
+                        <!-- End Content -->
+                     </div>
+                     <!-- End Left -->
+                     <div class="col-sm-4">
+                        <!-- Right -->
+                        <div class="row">
+                           <!-- Images Link-->
+                           <div class="col-sm-12">
+                              <h2>Images Link</h2>
+                              <hr>
+                              <a data-toggle="modal" href="#myModal" class="btn btn-success" style="width:100%;">Upload/Select Image</a>
+                           </div>
+                        </div>
+                        <!-- End Images Link-->
+                        <br>
+                        <div class="row">
+                           <!-- Images ID and Feature Images -->
+                           <div class="col-sm-12">
+                              <h2>{{ form.featured_image_id.label }}</h2>
+                              <hr>
+                              {{ form.featured_image_id }}
+                              <br>
+                              <h2>Current Image</h2>
+                              <hr>
+                              {% if qs.featured_image_id %}
+                              <img src="{{ featured_image_qs.upload_image.url }}" height="200px" width="300px"><br>
+                              {% else %}
+                              No featured image
+                              {% endif %}
+                           </div>
+                        </div>
+                        <!-- End Images ID and Feature Images-->
+                        <br>
+                        <div class="row">
+                           <!-- Category -->
+                           <div class="col-sm-12">
+                             <h2>{{ form.category.label }}</h2>
+                              <hr>
+                              {{ form.category }}
+                              <br><br>
+                              <h2>{{ form.is_featured.label }}</h2>
+                              <hr>
+                              {{ form.is_featured }}
+                              <br><br>
+                              <h2>{{ form.division.label }}</h2>
+                              <hr>
+                              {{ form.division }}
+                              <br><br>
+                              <h2>{{ form.divisional_category.label }}</h2>
+                              <hr>
+                              {{ form.divisional_category }}
+                              <br><br>
+                              <h2>{{ form.is_image_gallery.label }}</h2>
+                              <hr>
+                              {{ form.is_image_gallery }}
+                              <br><br>
+                              <h2>{{ form.is_video_gallery.label }}</h2>
+                              <hr>
+                              {{ form.is_video_gallery }}
+                              <br><br>
+                              <h2>{{ form.publish.label }}</h2>
+                              <hr>
+                              {{ form.publish }}
+                           </div>
+                        </div>
+                        <!-- End Category-->
+                     </div>
+                     <!-- End Right -->
+                  </div>
+                  <!--End Row-->
+               </div>
+               <!--End Form Group -->
+               <br>
+               <br>
+               <div class="row">
+                  <div class="col-sm-12">
+                     <input type="submit" value="Publish" class="btn btn-primary btn-lg">
+                  </div>
+               </div>
+            </form>
+            <!-- End Body -->                 
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+               <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Featured Image</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                     </div>
+                     <div class="modal-body">
+                        <div class="embed-responsive embed-responsive-16by9">
+                           <iframe id="Right" class="embed-responsive-item" src="{% url "Gallery:upload_image" %}"></iframe>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- End Modal -->
+         </div>
+      </div>
+   </div>
+</div>
+<!-- End -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_division").change(function () {
+      var url = $("#postForm").attr("data-disticts-url");  // get the url of the `load_disticts` view
+      var divisionID = $(this).val();  // get the selected division ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/post/ajax/load-disticts/)
+        data: {
+          'division': divisionID       // add the division id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_disticts` view function
+          $("#id_divisional_category").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+  
+{% endblock %}

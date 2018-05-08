@@ -1,0 +1,49 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin Panel | Login</title>
+
+    <!-- Bootstrap core CSS -->
+     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/floating-labels.css" %}" rel="stylesheet">
+
+  <body>
+    <div class="form-signin">
+      <div class="text-center mb-4">
+        <img class="mb-4" src="{% static "img/site_logo.png" %}" alt="" width="300" height="200">
+        <h1 class="h3 mb-3 font-weight-normal">Administrator Login</h1>
+      </div>
+
+      			{% if messages %}
+					<ul class="messages">
+					    {% for message in messages %}
+					    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><p style="color:red;">{{ message }}</p></li>
+					    {% endfor %}
+					    
+					</ul>
+					
+				{% endif %}
+
+				
+      		<form method="POST" action="">{% csrf_token %}
+	
+			{{ form|crispy }}
+
+				<br>
+				<input type="submit" value="Login" class="btn btn-primary" style="width:100%">
+			</form>
+
+
+    </div>
+  </body>
+</html>

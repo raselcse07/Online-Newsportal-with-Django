@@ -1,0 +1,77 @@
+{% extends "Reporter/dashboard.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if request.user.is_admin %}
+<!-- Start-->
+{% if messages %}
+   {% for message in messages %}
+      <div class="alert  alert-success alert-dismissible fade show" role="alert">
+         <span class="badge badge-pill badge-success">Success</span> {% if "html_safe" in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}.
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+   {% endfor %}
+{% endif %}
+{% if form.errors %}
+   {% for field in form %}
+      {% for error in field.errors %}
+         <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+            <span class="badge badge-pill badge-success">Error</span> {{ error|escape }}.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+      {% endfor %}
+   {% endfor %}
+   {% for error in form.non_field_errors %}
+      <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+         <span class="badge badge-pill badge-success">Error</span> {{ error|escape }}.
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+   {% endfor %}
+{% endif %}
+<div class="col-xl-12">
+   <div class="card">
+      <div class="card-body">
+         <div class="row">
+            <div class="col-sm-12">
+               <h2 class="card-title mb-0">Widget One(Homepage Middle First)</h2>
+            </div>
+            <!--/.col-->
+         </div>
+         <!--/.row-->
+         <hr>
+         <div class="chart-wrapper mt-4" >
+            <form method='POST' action=''>
+               {% csrf_token %}
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-sm-12">
+                        {{ form|crispy }}
+                        {{ form.help_text|safe }}
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <input type="submit" value="Save" class="btn btn-primary btn-lg"> 
+                     </div>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+{% else %}
+<div class="row">
+   <div class="col-sm-12">
+      <img src="{% static "img/No-Permission.jpg" %}" height="100%" width="100%">
+   </div>
+</div>
+<br>
+{% endif %}
+{% endblock %}

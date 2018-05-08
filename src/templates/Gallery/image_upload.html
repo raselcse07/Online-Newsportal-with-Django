@@ -1,0 +1,112 @@
+{% if request.user.is_authenticated %}
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Upload</title>
+    {% include "Gallery/header.html" %}
+</head>
+<body>
+<div class="container" style="margin-top: 50px;">
+    {% if messages %}        
+        <ul class="messages">       
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-6">
+            <form method="GET" action="">
+                <input type="text" name="q" class="form-control" placeholder="Search for images">
+                <br>
+                <input type="submit" value="search" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+    <hr>
+    <ul id="myTab" class="nav nav-tabs" style="margin-bottom: 15px;">
+        <li><a href="#Upload" data-toggle="tab">Upload</a></li>
+        <li class="active"><a href="#Select" data-toggle="tab">Select</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content" >
+        <div class="tab-pane fade" id="Upload"> 
+            <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+            <hr>
+            {{ form|crispy }}
+            <br>
+             <input type='submit' class='btn btn-primary' value='Upload'/>
+            </form>
+        </div>
+    </div>
+    <div class="tab-pane fade in active" id="Select">
+        <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+            <table class="table table-bordered">
+                <thead>         
+                    <tr>
+                        <th>Image Preview</th>
+                        <th>Image URL</th>
+                        <th>Images ID</th>
+                    </tr>
+                </thead>   
+                <tbody>
+                    {% for ob in qs %}
+                        {% if ob.upload_image %}
+                        <tr>
+                            <td><img id="myImg" src="{{ ob.upload_image.url }}" alt="" width="100" height="100"></td>
+                            <td><input type="text" name="country" value="http://127.0.0.1:8000{{ ob.upload_image.url }}" readonly></td>
+                            <td><input type="text" name="country" value="{{ ob.image_id }}" readonly></td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>  
+            </table>
+            <hr>
+            <h1>Images In Root</h1>
+            <table class="table table-bordered">
+                <thead>         
+                    <tr>
+                        <th>Image Preview</th>
+                        <th>Image Informations</th>
+                    </tr>
+                </thead>   
+                <tbody>
+                    {% for ob2 in images %}
+                        <tr>
+                            <td><img src="http://127.0.0.1:8000/media/{{ ob2 }}" alt="" width="100" height="100"></td>
+                            <td><input type="text" name="country" value="http://127.0.0.1:8000/media/{{ ob2 }}" readonly></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                {% if images.has_other_pages %}
+                  <ul class="pagination">
+                    {% if images.has_previous %}
+                      <li><a href="?page={{ images.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                      <li class="disabled"><span>&laquo;</span></li>
+                    {% endif %}
+                    {% for i in images.paginator.page_range %}
+                      {% if images.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                      {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if images.has_next %}
+                      <li><a href="?page={{ images.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                      <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+                  </ul>
+                  {% endif %}
+            </table>
+        </form>
+    </div>
+</div>
+{% include "Gallery/scripts.html" %}
+</body>
+</html>
+{% else %}
+<h1 style="color: red;">Have No Permission ! </h1>
+{% endif %}

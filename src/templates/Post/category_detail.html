@@ -1,0 +1,336 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> {{ general_settings.name_of_site }} | {{ qs.category_name }} </title>
+    <meta property="fb:app_id" content="{{ seo.facebook_app_id }}" />
+    <meta property="fb:pages" content="{{ seo.facebook_page_id }}" />
+    <meta property='og:locale' content='en_US'/>
+    <meta property="og:url" content="{{ seo.domain_name}}{% url "Post:category_detail" qs.category_slug %}"/>
+  	<meta property="og:type" content="article" />
+  	<meta property="og:title" content="{{ qs.category_name }}" />
+    <meta property="og:image" content="{{ seo.domain_name }}{{ general_settings.site_logo.url }}" />
+    <link rel="canonical" href="{{ seo.domain_name}}{% url "Post:category_detail" qs.category_slug %}">
+
+    {% include "Homepage/header.html" %}
+
+</head>
+
+<body>
+  <!-- Google Analytics --->
+    {{ google_analytics.google_analytics }}
+  <!-- End Analytics >
+
+    <!-- header social icon start -->
+    <div class="header_social_icon">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="date">
+                         <p><i class="fas fa-map-marker-alt"></i>  ঢাকা, <script type="text/javascript" src="http://english-date.appspot.com/index5.php"></script> | <script type="text/javascript" src="http://bangladate.appspot.com/index5.php"></script></p>
+                    </div>
+                </div>
+                <div class="col-sm-4 hidden-xs">
+                    <div class="social_icon">
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr"></div>
+    <!-- header social icon end -->
+
+    <!-- Menubar start -->
+
+    <nav class="navbar navbar-default custom_nav">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#my_nav" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="logo">
+                    {% if general_settings.site_logo %}
+                    <a href="/"><img src="{{ general_settings.site_logo.url }}" alt="logo" width="190px"></a>
+                    {% else %}
+                        Site Logo
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="my_nav">
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/">মূলপাতা</a></li>
+                    {% for ob in all_category %}
+                    <li><a href="{% url "Post:category_detail" ob.category_slug %}">{{ ob.category_name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menubar end -->
+
+
+    <div class="latest_news_scroll">
+        <div class="container">
+            <div class="row">
+                <div class="mlr">
+                    <div>
+                    <img src="{% static "img/ads_970x90.jpg" %}" width="100%" style="margin-top: 10px;" alt="970x90">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Catagory part start -->
+    <div class="catogory">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="catagory_path">
+                        <a href="/"><i class="fas fa-home"></i></a> &sol; <a href="{% url "Post:category_detail" qs.category_slug %}">{{ qs.category_name }}</a>
+                    </div>
+                </div>
+                <div class="clr"></div>
+                <div class="col-md-8">
+                    <div class="last_post">
+                    	{% for ob in paginator_qs|slice:":1" %}
+                        <div class="last_post_img">
+                            {% for images in featured_image_qs %}
+                                {% if ob.featured_image_id == images.image_id %}
+                                  <img src="{{ images.upload_image.url }}" alt="" class="img-responsive">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <h2><a href="{% url "Post:post_detail" ob.slug %}">{{ ob.title }}</a></h2>
+                        <p>{{ ob.get_markdown|truncatewords:50 }}..</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-4 visible-md visible-lg">
+                    <div class="side_add">
+                      {% if ads_homepage.sidebar_1 %}
+                      {{ ads_homepage.sidebar_1|safe }}
+                      {% else %}
+                      <img src="{% static "img/ads_350x250.jpg" %}" alt="350x250" class="img-responsive">
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row">
+                    	{% for ob in paginator_qs|slice:"2:" %}
+                        <div class="col-sm-6">
+                            <div class="single_cat_post">
+                                <div class="cat_post_thambnail">
+                                    {% for images in featured_image_qs %}
+                                		{% if ob.featured_image_id == images.image_id %}
+                                  			<img src="{{ images.upload_image.url }}" alt="" class="img-responsive">
+                                		{% endif %}
+                            		{% endfor %}
+                                </div>
+                                <h2><a href="{% url "Post:post_detail" ob.slug %}">{{ ob.title }}</a></h2>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="col-sm-12">
+                            <div class="load_button">
+                            	{% if paginator_qs.has_other_pages %}
+			                     <ul class="pagination">
+			                        {% if paginator_qs.has_previous %}
+			                        <li><a href="?page={{ paginator_qs.previous_page_number }}">&laquo;</a></li>
+			                        {% else %}
+			                        <li class="disabled"><span>&laquo;</span></li>
+			                        {% endif %}
+			                        {% for i in paginator_qs.paginator.page_range %}
+			                        {% if paginator_qs.number == i %}
+			                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+			                        {% else %}
+			                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+			                        {% endif %}
+			                        {% endfor %}
+			                        {% if paginator_qs.has_next %}
+			                        <li><a href="?page={{ paginator_qs.next_page_number }}">&raquo;</a></li>
+			                        {% else %}
+			                        <li class="disabled"><span>&raquo;</span></li>
+			                        {% endif %}
+			                     </ul>
+			                     {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="side_all_post">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#aaa" aria-controls="home" role="tab" data-toggle="tab">সর্বশেষ</a></li>
+                            <li role="presentation"><a href="#ddd" aria-controls="profile" role="tab" data-toggle="tab">সর্বাধিক পঠিত</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                       <div class="tab-content">
+                            <div role="tabpanel" class="my_tab tab_height2 tab-pane fade in active" id="aaa">
+                                {% for ob in all_posts|slice:":10"%}
+                                <div class="single_recent_post">
+                                    <div class="recent_post_thumbnail">
+                                        {% for images in featured_image_qs %}
+                                            {% if ob.featured_image_id == images.image_id %}
+                                            <img src="{{ images.upload_image.url }}" alt="" width="100%">
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <h4><a href="{% url "Post:post_detail" ob.slug %}">{{ ob.title }}</a></h4>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div role="tabpanel" class="my_tab tab_height2 tab-pane fade" id="ddd">
+                                {% for ob in most_popular|slice:":10"%}
+                                <div class="single_recent_post">
+                                    <div class="recent_post_thumbnail">
+                                        {% for images in featured_image_qs %}
+                                            {% if ob.featured_image_id == images.image_id %}
+                                            <img src="{{ images.upload_image.url }}" alt="" width="100%">
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <h4><a href="{% url "Post:post_detail" ob.slug %}">{{ ob.title }}</a></h4>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                      {% if ads_homepage.sidebar_1 %}
+                      {{ ads_homepage.sidebar_1|safe }}
+                      {% else %}
+                      <img src="{% static "img/ads_350x250.jpg" %}" alt="350x250" class="img-responsive">
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Catagory part end -->
+    <!-- Footer part start -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 footer_logo">
+                    <a href="#" class="name_plate">{{ general_settings.name_of_site }} </a>
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                {% for ob in category_1st_half_1st %}
+                    {% for ob2 in all_category %}
+                        {% if ob2.category_name == ob %}
+                            <a href="{% url "Post:category_detail" ob2.category_slug %}">{{ ob2.category_name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </div>
+
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                {% for ob in category_1st_half_2nd %}
+                    {% for ob2 in all_category %}
+                        {% if ob2.category_name == ob %}
+                            <a href="{% url "Post:category_detail" ob2.category_slug %}">{{ ob2.category_name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                {% for ob in category_2nd_half_1st %}
+                    {% for ob2 in all_category %}
+                        {% if ob2.category_name == ob %}
+                            <a href="{% url "Post:category_detail" ob2.category_slug %}">{{ ob2.category_name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </div>
+
+                <div class="col-md-2 col-sm-3 col-xs-6">
+                {% for ob in category_2nd_half_2nd %}
+                    {% for ob2 in all_category %}
+                        {% if ob2.category_name == ob %}
+                            <a href="{% url "Post:category_detail" ob2.category_slug %}">{{ ob2.category_name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </div>
+                <div class="clr visible-sm visible-xs"></div>
+                <div class="col-md-4">
+                    <div class="about_us">
+                      {% if copyright_info.about_summary %}
+                      <p>{{ copyright_info.about_summary|safe }}</p>
+                      {% else %}
+                      <p>About Website</p>
+                      {% endif %}
+                      {% if copyright_info.editor_email %}
+                      <p>সম্পাদকঃ {{ copyright_info.editor_email|safe }}</p>
+                      {% else %}
+                      <p>ইমেইলঃ info@website.com</p>
+                      {% endif %}
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook" style="color: #4267b2"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter-square" style="color: #1da1f2"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin" style="color: #4267b2"></i></a></li>
+                            <li><a href="#"><i class="fab fa-pinterest" style="color: #bd081c"></i></a></li>
+                            <li><a href="#"><i class="fab fa-youtube" style="color: #bd081c"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </footer>
+    <!-- Footer part end -->
+    <div class="copyright">
+      <p>
+        <a href="{% url "Post:about_page" %}" style="color:white;">আমাদের সম্পর্কে</a> | <a href="{% url "Post:contact_page" %}" style="color:white;">যোগাযোগ</a> | <a href="{% url "Post:privacy_page" %}" style="color:white;">গোপনীয় নিতিমালা</a> | <a href="{% url "Post:ads_page" %}" style="color:white;">বিজ্ঞাপন</a>
+      </p>
+      <p>
+        {% if copyright_info.copy_right_text %}
+        {{ copyright_info.copy_right_text|safe }}
+        {% else %}
+        Copyrigth@2018 | Website.Com
+        {% endif %}
+      </p>
+      <p>
+        কারিগরি সহযোগিতায় <a href="https://www.facebook.com/rasel.cse07" target="_blank" style="color:green;">মোঃ রাসেল</a>
+      </p>
+    </div>
+
+
+
+    <!-- ================== back to top start ================== -->
+
+    <div class="back_to_top">
+        <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
+    </div>
+
+    <!--  ================== back to top end ================== -->
+
+{% include "Homepage/footer.html" %}
+
+</body>
+
+</html>

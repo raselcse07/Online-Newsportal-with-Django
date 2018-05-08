@@ -1,0 +1,48 @@
+/*----------------------------------------------------------------------
+| Template Name: opinion poll of simple poll
+------------------------------------------------------------------------
+| Author: Orangebd
+------------------------------------------------------------------------
+| SIMPLE POLLING CONTENT STYLES
+------------------------------------------------------------------------*/
+div.simple_poll{
+	position:relative; background:#fff; border-bottom:1px solid #dfdfde
+}
+div.simple_poll > div.poll_ques{
+	padding:15px; font-size:16px; padding-bottom:15px; border-bottom:1px solid #eee; height:130px; overflow:hidden; display:table-cell; vertical-align:middle;
+}
+div.simple_poll > div.poll_options{
+	padding:15px; border-bottom:1px solid #eee
+}
+div.simple_poll > div.poll_options > span{
+	display:inline-block; padding-right:15px
+}
+div.simple_poll > div.err_msg{
+	display:none; background:blanchedalmond; color:#CD0000; padding:5px 10px
+}
+div.simple_poll > div.err_msg > i{
+	background:#CD0000; color:#fff; width:22px; height:22px; text-align:center; padding-top:3px; margin-right:5px;
+	
+	border-radius:50%;
+	-webkit-border-radius:50%;
+	-moz-border-radius:50%
+}
+div.simple_poll > div.poll_options > span > button.poll_submit{
+	display:inline-block; background:#dfdfde; padding:1px 5px;
+	
+	box-shadow: 0px 0px 5px #ccc;
+	-moz-box-shadow: 0px 0px 5px #ccc;
+	-webkit-box-shadow: 0px 0px 5px #ccc;
+	
+	transition:all 0.4s;
+	-webkit-transition:all 0.4s;
+	-moz-transition:all 0.4s;
+	-o-transition:all 0.4s;		
+}
+div.simple_poll > div.poll_options > span > button.poll_submit:hover{
+	background:#666; color:#fff
+}
+
+div.simple_poll > div.poll_options > span:last-child{
+	padding-right:0
+}

@@ -1,0 +1,110 @@
+{% extends "Reporter/dashboard.html" %}
+{% block content %}
+<!-- Start-->
+{% if messages %}
+   {% for message in messages %}
+      <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+         <span class="badge badge-pill badge-success">Deleted!</span> {% if "html_safe" in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}.
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+   {% endfor %}
+{% endif %}
+<div class="col-xl-12">
+   <div class="card">
+      <div class="card-body">
+         <div class="row">
+            <div class="col-sm-6">
+               <h2 class="card-title mb-0">Posts&ensp;&ensp;&ensp;<a href="{% url "Post:add_new_post" %}" class="btn btn-info">Add New</a> </h2>
+               <p style="color:blue;">
+                  All({{ qs.count }}) | Mine({{ user_post.count }})
+               </p>
+            </div>
+            <!--/.col-->
+         </div>
+         <!--/.row-->
+         <hr>
+         <div class="chart-wrapper mt-4" >
+            <div class="row">
+               <div class="col-sm-12">
+                  <table class="table table-bordered">
+                     <thead>
+                        <tr>
+                           <th>Title</th>
+                           <th>Author</th>
+                           <th>Category</th>
+                           <th>Time</th>
+                           <th>Updated</th>
+                           <th>Featured</th>
+                           <th>Divisional Category</th>
+                           <th>Images</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {% for ob in posts_qs %}
+                        <tr>
+                           <td>
+                              <p>
+                                 <a href="{% url "Post:post_update" ob.slug %}">{{ ob.title}}</a>
+                              </p>
+                              <p>
+                                 <a href="{% url "Post:post_update" ob.slug %}" style="color:green;"><i class="fa fa-edit"></i></a> | <a href="{% url "Post:post_delete" ob.slug %}" style="color: red;"><i class="ti-trash"></i></a>
+                              </p>
+                           </td>
+                           <td>
+                              {% for author in reporter_name %}
+                              {% if ob.user == author.username %}
+                              {% if author.display_name %}
+                              {{ author.display_name }}
+                              {% else %}
+                              No Name
+                              {% endif %}
+                              {% endif %}
+                              {% endfor %}
+                           </td>
+                           <td>{{ ob.category}}</td>
+                           <td>{{ ob.timestamp }}</td>
+                           <td>{{ ob.updated }}</td>
+                           <td>{{ ob.is_featured }}</td>
+                           <td>{{ ob.divisional_category }}</td>
+                           <td>
+                              {% for posts_qs in qs2 %}
+                              {% if ob.featured_image_id == posts_qs.image_id %}
+                              <img src="{{ posts_qs.upload_image.url }}" height="50px" width="50px">
+                              {% endif %}
+                              {% endfor %}
+                           </td>
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+                     {% if posts_qs.has_other_pages %}
+                     <ul class="pagination">
+                        {% if posts_qs.has_previous %}
+                        <li><a href="?page={{ posts_qs.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in posts_qs.paginator.page_range %}
+                        {% if posts_qs.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if posts_qs.has_next %}
+                        <li><a href="?page={{ posts_qs.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                     </ul>
+                     {% endif %}
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- End -->
+{% endblock %}

@@ -1,0 +1,34 @@
+<!doctype html>
+{% load static %}
+<html class="no-js" lang="">
+   <!--<![endif]-->
+   <head>
+      <!-- Header -->
+      {% include "Reporter/header.html" %} 
+      {% include "Reporter/charts.html" %}
+   </head>
+   <body>
+      {% if request.user.is_authenticated %}
+      <!-- Navigation-->
+      {% include "Reporter/nav-bar.html" %}
+      <div class="content mt-3">
+         {% block content %}
+         {% include "Reporter/dashboard-content.html" %}
+         {% endblock %}
+      </div>
+      <!-- .content -->
+      </div><!-- /#right-panel -->
+      <!-- Right Panel -->
+      <!-- Logout Modal -->
+      {% include "Reporter/logout_modal.html" %}
+      <!-- Footer Scripts -->
+      {% include "Reporter/footer-scripts.html" %}
+      {% else %}
+      <div class="row">
+         <div class="col-sm-12">
+            <h1 style="color:red;">You have no permission</h1>
+         </div>
+      </div>
+      {% endif %}
+   </body>
+</html>

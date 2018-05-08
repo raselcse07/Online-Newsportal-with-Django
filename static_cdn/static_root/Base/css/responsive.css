@@ -1,0 +1,219 @@
+@media(min-width: 992px) and (max-width: 1199px) {
+    .custom_nav {
+        height: auto;
+    }
+    #my_nav ul li a {
+        padding: 0 10px;
+        font-size: 17px;
+    }
+    .logo a img {
+        padding: 24px 10px;
+    }
+    .jorip_form input[type="radio"] {
+        margin: 0px 5px 30px 8px;
+    }
+    .jorip_form input[type="submit"] {
+        margin-right: auto;
+    }
+    /* Catagory page css start */
+    .last_post_img {
+        width: 380px;
+    }
+    .cat_post_thambnail {
+        width: 120px;
+    }
+    .single_cat_post h2 {
+        font-size: 18px;
+    }
+    .catogory .jorip_form input[type="submit"] {
+        margin-right: 80px;
+    }
+    /* Catagory page css end */
+}
+
+@media(min-width: 768px) and (max-width: 991px) {
+    .custom_nav {
+        height: auto;
+    }
+    #my_nav ul li a {
+        padding: 0 7px;
+        font-size: 15px;
+    }
+    .logo a img {
+        padding: 24px 10px;
+    }
+    .gallery_image,
+    .main_post_img,
+    .hr_post_thumbnail,
+    .logo,
+    .slider_text,
+    .slider_img {
+        height: auto;
+    }
+
+    .side_post,
+    .hr_post_list,
+    .slider_controls {
+        margin-bottom: 20px;
+    }
+    img.nmt {
+        margin-top: 0!important;
+        height: 233px;
+    }
+    .jorip_form input[type="submit"] {
+        margin-right: 140px;
+    }
+    .jorip_form input[type="radio"] {
+        margin: 0 5px 30px 44px;
+    }
+    .about_us {
+        margin-top: 30px;
+    }
+    .sm-half {
+        width: 50%;
+        float: left;
+        box-sizing: border-box;
+    }
+    .scroll_title h2 {
+        font-size: 20px;
+        color: #fcd1c1;
+        text-align: left
+    }
+    #myTabs {
+        margin-top: 20px;
+    }
+}
+
+
+
+
+/*--------------------------------------------------- 
+-------------------  mobile device ------------------
+----------------------------------------------------*/
+
+@media (max-width: 767px) {
+    .date p { 
+        font-size: 17px;
+    }
+    .custom_nav {
+        height: auto;
+    }
+    .logo a img {
+        padding: 10px;
+    }
+    .gallery_image,
+    .main_post_img,
+    .hr_post_thumbnail,
+    .logo,
+    .slider_text,
+    .slider_img {
+        height: auto;
+    }
+    .slider_text h2 a {
+        font-size: 18px;
+        font-weight: 700;
+    }
+    .side_post,
+    .hr_post_list,
+    .slider_controls {
+        margin-bottom: 20px;
+    }
+    .main_post h3,
+    .single_horizontal_post h3 {
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .others_img::after {
+        height: 80%;
+    }
+    .videogallery h3 a {
+        font-size: 18px;
+        font-weight: 700;
+    }
+    a.name_plate {
+        font-size: 25px;
+        font-weight: 700;
+    }
+    .about_us {
+        margin: 30px 0 0;
+    }
+    #my_nav ul li a {
+        line-height: 35px;
+    }
+    .scroll_title h2 {
+        font-size: 20px;
+        color: #fcd1c1;
+        text-align: left
+    }
+    .slider_controls {
+        height: 30px;
+    }
+    .slider_controls i.left_arrow,
+    .slider_controls i.right_arrow {
+        line-height: 30px;
+        padding: 0 10px;
+    }
+    .slider ul {
+        bottom: -50px;
+        right: 43px;
+    }
+    .fetured_post_sidebar iframe {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .about_us p {
+        text-align: justify;
+    }
+    .about_us ul {
+        margin-left: 35px;
+    }
+    .anim img {
+        width: 60px;
+    }
+
+    /* details page responsive css */
+    .details {
+        padding: 20px 0;
+    }
+    .post_details h2 {
+        font-size: 25px;
+        font-weight: 700;
+    }
+    .author_thumbnail {
+        float: none;
+    }
+    #myTabs {
+        margin-top: 20px;
+    }
+
+    /* catagory page css start */
+    .last_post_img {
+        width: 100%;
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+    .last_post_img img {
+        width: 100%;
+    }
+    .last_post {
+        height: auto
+    }
+    .last_post h2 {
+        font-size: 20px;
+        padding: 0 10px 20px;
+    }
+    .last_post p {
+        padding: 0 10px 20px;
+    }
+    .single_cat_post {
+        height: 70px;
+    }
+    .cat_post_thambnail {
+        width: 100px;
+    }
+    .single_cat_post h2 {
+        font-size: 18px;
+    }
+    /* catagory page css end */
+}
