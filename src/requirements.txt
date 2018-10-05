@@ -1,5 +1,5 @@
 beautifulsoup4==4.6.0
-Django==1.11
+Django==1.11.15
 django-ckeditor==5.4.0
 django-crispy-forms==1.7.0
 django-js-asset==1.0.0
